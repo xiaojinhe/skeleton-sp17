@@ -1,12 +1,17 @@
 package hw4.hash;
 
+import edu.princeton.cs.algs4.StdRandom;
+import hw4.hash.SimpleOomage;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import sun.java2d.pipe.SpanShapeRenderer;
+
 
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 
 public class TestSimpleOomage {
@@ -22,10 +27,26 @@ public class TestSimpleOomage {
 
     @Test
     public void testHashCodePerfect() {
-        /* TODO: Write a test that ensures the hashCode is perfect,
-          meaning no two SimpleOomages should EVER have the same
-          hashCode!
-         */
+        int[] redList = new int[52];
+        int[] greenList = new int[52];
+        int[] blueList = new int[52];
+
+        for (int i = 0; i < 52; i++) {
+            redList[i] = i * 5;
+            greenList[i] = i * 5;
+            blueList[i] = i * 5;
+        }
+
+        HashSet<SimpleOomage> set = new HashSet<>();
+        for (int i = 0; i < redList.length; i++) {
+            for (int j = 0; j < greenList.length; j++) {
+                for (int k = 0; k < blueList.length; k++) {
+                    assertFalse(set.contains(new SimpleOomage(redList[i], greenList[j], blueList[k])));
+                    set.add(new SimpleOomage(redList[i], greenList[j], blueList[k]));
+                    assertTrue(set.contains(new SimpleOomage(redList[i], greenList[j], blueList[k])));
+                }
+            }
+        }
     }
 
     @Test
@@ -39,6 +60,7 @@ public class TestSimpleOomage {
         assertNotEquals(ooA, "ketchup");
     }
 
+
     @Test
     public void testHashCodeAndEqualsConsistency() {
         SimpleOomage ooA = new SimpleOomage(5, 10, 20);
@@ -48,19 +70,15 @@ public class TestSimpleOomage {
         assertTrue(hashSet.contains(ooA2));
     }
 
-    /* TODO: Once you've finished haveNiceHashCodeSpread,
-    in OomageTestUtility, uncomment this test. */
-    /*@Test
+    @Test
     public void testRandomOomagesHashCodeSpread() {
         List<Oomage> oomages = new ArrayList<>();
         int N = 10000;
-
         for (int i = 0; i < N; i += 1) {
             oomages.add(SimpleOomage.randomSimpleOomage());
         }
-
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(oomages, 10));
-    }*/
+    }
 
     /** Calls tests for SimpleOomage. */
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 package hw3.puzzle;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -7,7 +8,7 @@ import edu.princeton.cs.introcs.In;
 
 public class Word implements WorldState {
     private static Set<String> words;
-    private static final String WORDFILE = "words10000.txt";
+    private static final String WORDFILE = "input/words10000.txt";
     private final String word;
     private final String goal;
 
@@ -62,14 +63,13 @@ public class Word implements WorldState {
             int nw = i - 1;
             for (int j = 1; j <= b.length(); j++) {
                 int cj = Math.min(1 + Math.min(costs[j], costs[j - 1]),
-                         a.charAt(i - 1) == b.charAt(j - 1) ? nw : nw + 1);
+                        a.charAt(i - 1) == b.charAt(j - 1) ? nw : nw + 1);
                 nw = costs[j];
                 costs[j] = cj;
             }
         }
         return costs[b.length()];
     }
-
 
     @Override
     public Iterable<WorldState> neighbors() {

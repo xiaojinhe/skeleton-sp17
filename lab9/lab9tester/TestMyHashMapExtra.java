@@ -26,6 +26,7 @@ public class TestMyHashMapExtra {
         assertTrue(q.containsKey("b"));
         assertTrue(q.containsKey("d"));
         assertTrue(q.containsKey("e"));
+        assertEquals("a", q.remove("a"));
     }
     
     /* Remove Test 2 

@@ -34,8 +34,13 @@ public class MergeSort {
     /** Returns a queue of queues that each contain one item from items. */
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
-        // Your code here!
-        return null;
+        Queue<Queue<Item>> queue = new Queue<>();
+        for (Item i : items) {
+            Queue<Item> q = new Queue<>();
+            q.enqueue(i);
+            queue.enqueue(q);
+        }
+        return queue;
     }
 
     /**
@@ -53,14 +58,47 @@ public class MergeSort {
      */
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
-        // Your code here!
-        return null;
+        Queue<Item> res = new Queue<>();
+        int size = q1.size() + q2.size();
+        while (res.size() < size) {
+            res.enqueue(getMin(q1, q2));
+        }
+        return res;
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
-        // Your code here!
+        if (items == null) {
+            return null;
+        }
+        if (items.isEmpty() || items.size() == 1) {
+            return items;
+        }
+
+        Queue<Queue<Item>> sortedQueue = makeSingleItemQueues(items);
+
+        while (sortedQueue.size() > 1) {
+            Queue<Item> merged = mergeSortedQueues(sortedQueue.dequeue(), sortedQueue.dequeue());
+            sortedQueue.enqueue(merged);
+        }
+
+        items = sortedQueue.dequeue();
         return items;
+    }
+
+    public static void main(String[] args) {
+        Queue<Integer> intQueue = new Queue<>();
+        intQueue.enqueue(15);
+        intQueue.enqueue(10);
+        intQueue.enqueue(13);
+        intQueue.enqueue(4);
+        intQueue.enqueue(7);
+        intQueue.enqueue(2);
+        intQueue.enqueue(30);
+        System.out.println(intQueue);
+        Queue<Integer> sorted = MergeSort.mergeSort(intQueue);
+        System.out.println(intQueue);
+        System.out.println(sorted);
     }
 }

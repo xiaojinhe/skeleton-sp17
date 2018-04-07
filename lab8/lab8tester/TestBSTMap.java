@@ -1,7 +1,8 @@
 package lab8tester;
 import static org.junit.Assert.*;
-import org.junit.Test;
+
 import lab8.BSTMap;
+import org.junit.Test;
 
 /** Tests by Brendan Hu, Spring 2015, revised for 2016 by Josh Hug */
 public class TestBSTMap {

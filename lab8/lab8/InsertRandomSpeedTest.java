@@ -1,4 +1,5 @@
 package lab8;
+import java.util.HashMap;
 import java.util.TreeMap;
 import java.io.IOException;
 import java.util.Scanner;
@@ -38,6 +39,10 @@ public class InsertRandomSpeedTest {
             timeRandomTreeMap(new TreeMap<String, Integer>(), 
                             waitForPositiveInt(input), L);
 
+            System.out.print("\nEnter # strings to insert into Java's HashMap: ");
+            timeRandomHashMap(new HashMap<String, Integer>(),
+                    waitForPositiveInt(input), L);
+
             System.out.print("\nWould you like to try more timed-tests? (y/n)");
             repeat = input.nextLine();
         } while (!repeat.equalsIgnoreCase("n") && !repeat.equalsIgnoreCase("no"));
@@ -64,6 +69,18 @@ public class InsertRandomSpeedTest {
         for (int i = 0; i < N; i++) {
             s = StringUtils.randomString(L);
             treeMap.put(s, new Integer(i));
+        }
+        return sw.elapsedTime();
+    }
+
+    /** Returns time needed to put N random strings of length L into the
+     * HashMap hashMap. */
+    public static double insertRandom(HashMap<String, Integer> hashMap, int N, int L) {
+        Stopwatch sw = new Stopwatch();
+        String s = "cat";
+        for (int i = 0; i < N; i++) {
+            s = StringUtils.randomString(L);
+            hashMap.put(s, new Integer(i));
         }
         return sw.elapsedTime();
     }
@@ -97,6 +114,22 @@ public class InsertRandomSpeedTest {
             printInfoOnStackOverflow(N, L); 
         } catch (RuntimeException e) { 
             e.printStackTrace(); 
+        }
+    }
+
+    /*
+    Attempts to insert N random strings of length L into a HashMap
+    Prints time of the N insert calls, otherwise
+    Prints a nice message about the error
+*/
+    public static void timeRandomHashMap(HashMap<String, Integer> hashMap, int N, int L) {
+        try {
+            double javaTime = insertRandom(hashMap, N, L);
+            System.out.printf("Java's Built-in HashMap: %.2f sec\n", javaTime);
+        } catch (StackOverflowError e) {
+            printInfoOnStackOverflow(N, L);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
     }
 

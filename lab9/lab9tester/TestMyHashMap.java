@@ -54,7 +54,7 @@ public class TestMyHashMap {
         b.put("starChild", 5);
         assertNotEquals(null,b.get("starChild"));
         b.put("KISS", 5);
-        assertNotEquals(null,b.get("KISS"));
+        assertEquals((Integer) 5, b.get("KISS"));
         assertNotEquals(null,b.get("starChild"));
     }
 

@@ -1,10 +1,10 @@
 package lab8tester;
 import java.util.Set;
-import java.util.Map;
 import java.util.HashSet;
 import static org.junit.Assert.*;
-import org.junit.Test;
+
 import lab8.BSTMap;
+import org.junit.Test;
 
 /** Tests of optional parts of lab 8. */
 public class TestBSTMapExtra {
